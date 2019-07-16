@@ -68,6 +68,8 @@ public class ImageChatAdapter extends BaseAdapter {
         return convertView;
     }
     public static int getImageId(Context context, String imageName) {
-        return context.getResources().getIdentifier("drawable/" + imageName, null, context.getPackageName());
+        if (imageName.indexOf(".") > 0)
+            imageName = imageName.substring(0, imageName.lastIndexOf("."));
+        return context.getResources().getIdentifier("drawable/" + imageName, "png", context.getPackageName());
     }
 }

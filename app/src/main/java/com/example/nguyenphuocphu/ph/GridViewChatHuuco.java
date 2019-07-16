@@ -31,8 +31,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+/**
+ * hàm xổ dữ liệu vào gridview với dữ liệu là tất cả các chất trong bảng chathoahoc
+ */
 public class GridViewChatHuuco extends AppCompatActivity {
-    String urlGetdata = "http://192.168.1.12/WebService01/getdata.php";
+    String urlGetdata = "http://192.168.1.12/WebService01/getChat.php";
     GridView gvChatHuuco;
     Button btnClose;
     ArrayList<ImageViewChat> arrayList;
@@ -56,7 +59,10 @@ public class GridViewChatHuuco extends AppCompatActivity {
         gvChatHuuco.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(GridViewChatHuuco.this, arrayList.get(position).getTenChat(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(GridViewChatHuuco.this, arrayList.get(position).getTenChat(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(GridViewChatHuuco.this, ChatPhanUng.class);
+                intent.putExtra("chat1", arrayList.get(position).getTenChat());
+                GridViewChatHuuco.this.startActivity(intent);
             }
         });
     }
@@ -84,7 +90,7 @@ public class GridViewChatHuuco extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(GridViewChatHuuco.this, "Lỗi!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GridViewChatHuuco.this, "Lỗi!" + error, Toast.LENGTH_SHORT).show();
                     }
                 }
         );
