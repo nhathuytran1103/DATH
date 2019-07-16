@@ -9,33 +9,28 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnVoco, btnHuuco;
+    Button chonPhanUng, chonLoaiPhanUng, timChat;
     TextView textView;
     ImageButton btnReset;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btnVoco = (Button) findViewById(R.id.btnVoco);
-        btnHuuco = (Button) findViewById(R.id.btnHuuco);
+        chonPhanUng = (Button) findViewById(R.id.chonPhanUng);
+        chonLoaiPhanUng = (Button) findViewById(R.id.chonLoaiPhanUng);
+        timChat = (Button) findViewById(R.id.timChat);
         textView = (TextView) findViewById(R.id.textView);
         btnReset = (ImageButton) findViewById(R.id.btnReset) ;
-        btnVoco.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, GridViewChatVoco.class));
-            }
-        });
-        btnReset.setOnClickListener(new View.OnClickListener() {
+        chonPhanUng.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText("");
+                startActivity(new Intent(MainActivity.this, ChonPhanUng.class));
             }
         });
-        btnHuuco.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, GridViewChatHuuco.class));
+        timChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, TimChat.class));
             }
         });
     }

@@ -1,17 +1,23 @@
 package com.example.nguyenphuocphu.ph;
 
 public class ImageViewChat {
+    private String idChat;
     private String tenChat;
-    private int hinhChatl;
+    private String hinhChat;
 
-    public ImageViewChat(String tenchat, int hinhchat) {
-        this.tenChat = tenchat;
-        this.hinhChatl = hinhchat;
+    public ImageViewChat(String idChat, String tenChat, String hinhChat) {
+        this.idChat = idChat;
+        this.tenChat = tenChat;
+        this.hinhChat = hinhChat;
     }
 
-    public ImageViewChat(int idchat, String tenchat, String string) {
+    public String getIdChat() {
+        return idChat;
     }
 
+    public void setIdChat(String idChat) {
+        this.idChat = idChat;
+    }
 
     public String getTenChat() {
         return tenChat;
@@ -21,11 +27,11 @@ public class ImageViewChat {
         this.tenChat = tenChat;
     }
 
-    public int getHinhChatl() {
-        return hinhChatl;
+    public String getHinhChat() {
+        return hinhChat;
     }
 
-    public void setHinhChatl(int hinhChatl) {
-        this.hinhChatl = hinhChatl;
+    public void setHinhChat(String hinhChat) {
+        this.hinhChat = hinhChat;
     }
 }

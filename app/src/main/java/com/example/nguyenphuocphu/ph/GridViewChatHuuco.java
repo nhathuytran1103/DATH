@@ -1,12 +1,15 @@
 package com.example.nguyenphuocphu.ph;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -17,7 +20,15 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class GridViewChatHuuco extends AppCompatActivity {
@@ -26,62 +37,57 @@ public class GridViewChatHuuco extends AppCompatActivity {
     Button btnClose;
     ArrayList<ImageViewChat> arrayList;
     ImageChatAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chathuuco_grid_view);
-        AnhXa();
-        GetData(urlGetdata);
+        btnClose = (Button) findViewById(R.id.btnClose);
+        gvChatHuuco = (GridView) findViewById(R.id.gvChatHuuco);
+        arrayList = new ArrayList<>();
         adapter = new ImageChatAdapter(this, R.layout.image_chat, arrayList);
-        gvChatHuuco.setAdapter(adapter);
+        GetData(urlGetdata);
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(GridViewChatHuuco.this, MainActivity.class));
+                startActivity(new Intent(GridViewChatHuuco.this, ChonPhanUng.class));
             }
         });
         gvChatHuuco.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(GridViewChatHuuco.this, arrayList.get(position).getTenChat(), Toast.LENGTH_SHORT);
-
+                Toast.makeText(GridViewChatHuuco.this, arrayList.get(position).getTenChat(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
-
     private void GetData(String url) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Toast.makeText(GridViewChatHuuco.this, response.toString(), Toast.LENGTH_SHORT);
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+                                JSONObject object = response.getJSONObject(i);
+                                arrayList.add(new ImageViewChat(
+                                        object.getString("Id"),
+                                        object.getString("TenChat"),
+                                        object.getString("HinhChat")
+                                ));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        gvChatHuuco.setAdapter(adapter);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(GridViewChatHuuco.this, "Lỗi!", Toast.LENGTH_SHORT).show();
-
                     }
                 }
         );
         requestQueue.add(jsonArrayRequest);
-
-    }
-
-    private void AnhXa() {
-        btnClose = (Button) findViewById(R.id.btnClose);
-        gvChatHuuco = (GridView) findViewById(R.id.gvChatHuuco);
-        arrayList = new ArrayList<ImageViewChat>();
-        arrayList.add(new ImageViewChat("Na", R.drawable.naicon));
-        arrayList.add(new ImageViewChat("Al", R.drawable.alicon));
-        arrayList.add(new ImageViewChat("Cu", R.drawable.cuicon));
-        arrayList.add(new ImageViewChat("H20", R.drawable.h2oicon));
-        arrayList.add(new ImageViewChat("Mo", R.drawable.moicon));
-        arrayList.add(new ImageViewChat("O2", R.drawable.o2icon));
-
     }
 }

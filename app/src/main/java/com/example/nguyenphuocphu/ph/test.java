@@ -36,48 +36,12 @@ public class test extends AppCompatActivity {
     Button btnClose;
     ArrayList<ImageViewChat> arrayList;
     ImageChatAdapter adapter;
+
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chathuuco_grid_view);
-        gvChatHuuco = (GridView) findViewById(R.id.gvChatHuuco);
-        arrayList = new ArrayList<>();
-        adapter = new ImageChatAdapter(this, R.layout.image_chat, arrayList);
-        GetData(urlGetdata);
-    }
-    private void GetData(final String url) {
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        Toast.makeText(test.this, response.toString(), Toast.LENGTH_SHORT).show();
-                        for (int i=0; i < response.length(); i++) {
-                            try {
-                                JSONObject object = response.getJSONObject(i);
-                                arrayList.add(new ImageViewChat(
-                                   object.getString("tenchat"),
-                                   object.getInt("hinhchat")
-                                ));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        adapter.notifyDataSetChanged();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(test.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-//                        Toast.makeText(test.this, url, Toast.LENGTH_SHORT).show();
-                        VolleyLog.e("Error: ", error.getMessage());
 
-
-                    }
-                }
-        );
-        requestQueue.add(jsonArrayRequest);
 
     }
 }

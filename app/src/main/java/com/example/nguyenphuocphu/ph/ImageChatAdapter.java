@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class ImageChatAdapter extends BaseAdapter {
@@ -58,12 +59,15 @@ public class ImageChatAdapter extends BaseAdapter {
         }
 
 
-
+        Context c = context.getApplicationContext();
         // gán giá trị
         ImageViewChat imageViewChat = imageViewChatList.get(position);
         viewHolder.textView.setText(imageViewChat.getTenChat());
-        viewHolder.imageView.setImageResource(imageViewChat.getHinhChatl());
+        viewHolder.imageView.setImageResource(getImageId(c, imageViewChat.getHinhChat()));
 
         return convertView;
+    }
+    public static int getImageId(Context context, String imageName) {
+        return context.getResources().getIdentifier("drawable/" + imageName, null, context.getPackageName());
     }
 }
