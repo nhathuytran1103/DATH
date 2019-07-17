@@ -1,15 +1,12 @@
 package com.example.nguyenphuocphu.ph;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -23,19 +20,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 /**
  * hàm xổ dữ liệu vào gridview với dữ liệu là tất cả các chất trong bảng chathoahoc
  */
 public class GridViewChatHuuco extends AppCompatActivity {
-    String urlGetdata = "http://192.168.1.12/WebService01/getChat.php";
+    String urlGetdata = "http://192.168.1.12/WebService01/getChatHuuco.php";
     GridView gvChatHuuco;
     Button btnClose;
     ArrayList<ImageViewChat> arrayList;
@@ -59,7 +50,7 @@ public class GridViewChatHuuco extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Toast.makeText(GridViewChatHuuco.this, arrayList.get(position).getTenChat(), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(GridViewChatHuuco.this, ChatPhanUng.class);
+                Intent intent = new Intent(GridViewChatHuuco.this, GridViewChatHuuco2.class);
                 intent.putExtra("chat1", arrayList.get(position).getTenChat());
                 GridViewChatHuuco.this.startActivity(intent);
             }

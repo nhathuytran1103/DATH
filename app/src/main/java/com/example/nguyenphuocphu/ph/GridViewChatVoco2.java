@@ -1,7 +1,6 @@
 package com.example.nguyenphuocphu.ph;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,14 +8,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -28,7 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ChatPhanUng extends AppCompatActivity {
+public class GridViewChatVoco2 extends AppCompatActivity {
     String urlGetdata = "http://192.168.1.12/WebService01/getChat2.php";
     String urlGetPhanUng = "http://192.168.1.12/WebService01/getPhanUng.php";
     GridView gvChatHuuco;
@@ -53,7 +50,7 @@ public class ChatPhanUng extends AppCompatActivity {
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ChatPhanUng.this, GridViewChatHuuco.class));
+                startActivity(new Intent(GridViewChatVoco2.this, GridViewChatVoco.class));
             }
         });
         gvChatHuuco.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -129,10 +126,9 @@ public class ChatPhanUng extends AppCompatActivity {
                         } catch (JSONException err) {
                             Log.d("Error", err.toString());
                         }
-                        Intent intent = new Intent(ChatPhanUng.this, ChonPhanUng.class);
-                        System.out.println(phanUngModel.getChatSanPham1());
+                        Intent intent = new Intent(GridViewChatVoco2.this, ChonPhanUng.class);
                         intent.putExtra("phanUngModel", phanUngModel);
-                        ChatPhanUng.this.startActivity(intent);
+                        GridViewChatVoco2.this.startActivity(intent);
                     }
                 },
                 new Response.ErrorListener() {

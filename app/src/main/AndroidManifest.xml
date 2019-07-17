@@ -12,9 +12,10 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChatPhanUng"></activity>
+        <activity android:name=".GridViewChatVoco2"></activity>
         <activity android:name=".GridViewChatHuuco" />
         <activity android:name=".GridViewChatVoco" />
+        <activity android:name=".GridViewChatHuuco2" />
         <activity android:name=".ChonPhanUng" />
         <activity android:name=".TimChat" />
         <activity android:name=".MainActivity">

@@ -8,13 +8,13 @@
 
 
     <Button
-        android:id="@+id/btnHuuco"
+        android:id="@+id/btnVoco"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
         android:layout_marginTop="4dp"
         android:background="@drawable/button"
-        android:text="Chất Hữu Cơ "
+        android:text="Chất Vô Cơ "
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,17 +35,17 @@
         tools:ignore="UnknownId" />
 
     <Button
-        android:id="@+id/btnVoco"
+        android:id="@+id/btnHuuco"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/button"
-        android:text="Chất vô cơ"
+        android:text="Chất Hữu Cơ"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toEndOf="@+id/btnHuuco"
+        app:layout_constraintStart_toEndOf="@+id/btnVoco"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
@@ -65,6 +65,19 @@
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/iconsreset" />
 
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifView"
+        android:layout_width="300dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/metal"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent" />
     <TextView
         android:id="@+id/textView"
         android:layout_width="394dp"
