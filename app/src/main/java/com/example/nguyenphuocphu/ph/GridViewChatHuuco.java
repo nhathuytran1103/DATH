@@ -40,7 +40,6 @@ public class GridViewChatHuuco extends AppCompatActivity {
     Button btnClose;
     ArrayList<ImageViewChat> arrayList;
     ImageChatAdapter adapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

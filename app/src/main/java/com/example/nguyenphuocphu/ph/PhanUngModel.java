@@ -1,6 +1,8 @@
 package com.example.nguyenphuocphu.ph;
 
-public class PhanUngModel {
+import java.io.Serializable;
+
+public class PhanUngModel implements Serializable {
     private int idPhanUng;
     private String chatThamGia1;
     private String chatThamGia2;

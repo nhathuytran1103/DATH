@@ -1,6 +1,7 @@
 package com.example.nguyenphuocphu.ph;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,9 +35,8 @@ public class ChatPhanUng extends AppCompatActivity {
     Button btnClose;
     ArrayList<ImageViewChat> arrayList;
     ImageChatAdapter adapter;
-    String chat1;
-    String chat2;
     PhanUngModel phanUngModel = new PhanUngModel();
+    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,34 +44,29 @@ public class ChatPhanUng extends AppCompatActivity {
         setContentView(R.layout.chathuuco_grid_view);
         Intent intent = getIntent();
         // tên chất vừa chọn, được gửi từ màn hình trước
-        chat1 = intent.getStringExtra("chat1");
+        final String chat1 = intent.getStringExtra("chat1");
         btnClose = (Button) findViewById(R.id.btnClose);
         gvChatHuuco = (GridView) findViewById(R.id.gvChatHuuco);
         arrayList = new ArrayList<>();
         adapter = new ImageChatAdapter(this, R.layout.image_chat, arrayList);
-        PostString(urlGetdata);
+        PostString(urlGetdata, chat1);
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ChatPhanUng.this, ChonPhanUng.class));
+                startActivity(new Intent(ChatPhanUng.this, GridViewChatHuuco.class));
             }
         });
         gvChatHuuco.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                chat2 = arrayList.get(position).getTenChat();
-                GetPhanUng(urlGetPhanUng);
-                Intent intent = new Intent(ChatPhanUng.this, ChonPhanUng.class);
-                System.out.println(phanUngModel.getChatSanPham1());
-                intent.putExtra("chat2", phanUngModel.getChatSanPham1());
-                intent.putExtra("chat1", phanUngModel.getChatSanPham2());
-                ChatPhanUng.this.startActivity(intent);
-
+                final String chat2 = arrayList.get(position).getTenChat();
+                GetPhanUng(urlGetPhanUng, chat1, chat2);
             }
         });
     }
+
     // hàm lấy dữ liệu các chất phản ứng được với chất vừa chọn
-    private void PostString(String url) {
+    private void PostString(String url, final String chat1) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -84,8 +79,7 @@ public class ChatPhanUng extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        for (int i = 0; i < jsonArr.length(); i++)
-                        {
+                        for (int i = 0; i < jsonArr.length(); i++) {
                             JSONObject jsonObj = null;
                             try {
                                 jsonObj = jsonArr.getJSONObject(i);
@@ -117,8 +111,9 @@ public class ChatPhanUng extends AppCompatActivity {
         };
         requestQueue.add(stringRequest);
     }
+
     // hàm lấy tất cả dữ liệu của phản ứng được chọn
-    private void GetPhanUng(String url) {
+    private void GetPhanUng(String url, final String chat1, final String chat2) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -126,11 +121,18 @@ public class ChatPhanUng extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
+                            phanUngModel.setChatThamGia1(jsonObject.getString("ChatThamGia1"));
+                            phanUngModel.setChatThamGia2(jsonObject.getString("ChatThamGia2"));
+                            phanUngModel.setHinhAnh(jsonObject.getString("HinhAnh"));
                             phanUngModel.setChatSanPham1(jsonObject.getString("ChatSanPham1"));
                             phanUngModel.setChatSanPham2(jsonObject.getString("ChatSanPham2"));
-                        }catch (JSONException err){
+                        } catch (JSONException err) {
                             Log.d("Error", err.toString());
                         }
+                        Intent intent = new Intent(ChatPhanUng.this, ChonPhanUng.class);
+                        System.out.println(phanUngModel.getChatSanPham1());
+                        intent.putExtra("phanUngModel", phanUngModel);
+                        ChatPhanUng.this.startActivity(intent);
                     }
                 },
                 new Response.ErrorListener() {
